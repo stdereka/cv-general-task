@@ -1,29 +1,16 @@
-# README #
+# Задача #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+`cigarette_butt_segmentation` - предложить модель сегментации окурков сигарет. 
 
-### What is this repository for? ###
+# Критерии оценивания
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+В первую очередь нам важно оценить, как вы мыслите.
+Для этого максимально подробно комментируйте свои действия и полученные результаты. Будут оцениваться:
 
-### How do I get set up? ###
+1. Ваши идеи по используемым методам и моделям
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+2. Подготовка данных
 
-### Contribution guidelines ###
+3. Чистота кода, оформление репозитория
 
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+4. Анализ полученных результатов и значения метрик
