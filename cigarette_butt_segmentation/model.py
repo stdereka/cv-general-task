@@ -3,10 +3,19 @@ import torch
 
 
 class UNet(nn.Module):
+    """
+    UNet implementation from the article https://arxiv.org/abs/1505.04597
+    """
     def __init__(self, size=256):
         super().__init__()
 
         def get_conv_block(inp, out):
+            """
+            Convolution block of UNet. Conv 3x3 -> ReLU -> Conv 3x3 -> ReLU
+            :param inp: Number of input channels
+            :param out: Number of output channels
+            :return:
+            """
             block = nn.Sequential(
                 nn.Conv2d(in_channels=inp,
                           out_channels=out,
@@ -22,6 +31,11 @@ class UNet(nn.Module):
             return block
 
         def get_dec_block(inp):
+            """
+            Decoder block of UNet. Conv 3x3 -> ReLU -> Conv 3x3 -> ReLU
+            :param inp: Number of input channels
+            :return: Reduced by 2 number of channels
+            """
             block = nn.Sequential(
                 nn.Conv2d(in_channels=inp,
                           out_channels=inp // 2,
@@ -37,6 +51,12 @@ class UNet(nn.Module):
             return block
 
         def get_up_block(inp, out_size):
+            """
+            UNet upsampling block. Upsample -> Conv 2x2 -> ReLU
+            :param inp: Number of input channels
+            :param out_size: Output size
+            :return:
+            """
             block = nn.Sequential(
                 nn.Upsample(out_size),
                 nn.Conv2d(in_channels=inp,
