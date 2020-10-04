@@ -74,7 +74,7 @@ def eval_epoch(model: nn.Module, val_loader: DataLoader,
             loss = criterion(outputs, labels)
             preds = nn.Sigmoid()(outputs)
 
-        ground.append(labels[0].cpu())
+        ground.append(labels.cpu())
         predicted.append(preds.cpu().detach().numpy())
 
         running_loss += loss.item() * inputs.size(0)
