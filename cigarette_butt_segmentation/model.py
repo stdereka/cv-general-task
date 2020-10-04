@@ -61,7 +61,7 @@ class UNet(nn.Module):
         self.bottleneck_conv = get_conv_block(256, 512)
 
         # decoder
-        self.upsample0 = get_up_block(512, size // 6)
+        self.upsample0 = get_up_block(512, size // 8)
         self.dec_conv0 = get_dec_block(512)
         self.upsample1 = get_up_block(256, size // 4)
         self.dec_conv1 = get_dec_block(256)
