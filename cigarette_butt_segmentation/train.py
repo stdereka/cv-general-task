@@ -14,7 +14,7 @@ def fit_epoch(model: nn.Module, train_loader: DataLoader,
     :param criterion: loss function to optimize
     :param optimizer: optimizer to use
     :param device: device to train on
-    :return: loss and accuracy on train set
+    :return: loss and metric on train set
     """
     running_loss = 0.0
     processed_data = 0
@@ -29,7 +29,7 @@ def fit_epoch(model: nn.Module, train_loader: DataLoader,
         optimizer.zero_grad()
 
         outputs = model(inputs)
-        loss = criterion(outputs, labels)
+        loss = criterion(labels, outputs)
         loss.backward()
         optimizer.step()
         preds = nn.Sigmoid()(outputs)
@@ -56,7 +56,7 @@ def eval_epoch(model: nn.Module, val_loader: DataLoader,
     :param val_loader: pytorch data loader
     :param criterion: loss function
     :param device: device to train on
-    :return: loss and accuracy on validation set
+    :return: loss and metric on validation set
     """
     model.eval()
     running_loss = 0.0
@@ -66,12 +66,11 @@ def eval_epoch(model: nn.Module, val_loader: DataLoader,
     predicted = []
     for inputs, labels in val_loader:
         inputs = inputs.to(device)
-
         labels = labels.to(device)
 
         with torch.set_grad_enabled(False):
             outputs = model(inputs)
-            loss = criterion(outputs, labels)
+            loss = criterion(labels, outputs)
             preds = nn.Sigmoid()(outputs)
 
         ground.append(labels.cpu())
@@ -108,7 +107,7 @@ def train(train_dataset, val_dataset, model, epochs: int,
 
     history = []
     log_template = "Epoch: {ep}, train_loss: {t_loss:0.4f}, val_loss: {v_loss:0.4f}, " \
-                   "train_acc: {t_acc:0.4f}, val_acc: {v_acc:0.4f}"
+                   "train_metric: {t_acc:0.4f}, val_metric: {v_acc:0.4f}"
 
     for epoch in range(epochs):
 
