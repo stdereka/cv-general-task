@@ -7,7 +7,7 @@ from torch import nn
 def inference(model: nn.Module, test_loader: DataLoader,
               device: str, logit=False) -> np.array:
     """
-    Runs prediction on test dataset
+    Runs prediction on unlabeled dataset
     :param model: pytorch model
     :param test_loader: test dataset pytorch loader
     :param device: device to use (cpu, gpu etc.)

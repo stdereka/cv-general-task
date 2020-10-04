@@ -20,14 +20,19 @@ class BCELoss:
 
 
 class BinaryTverskyLoss:
-    def __init__(self, beta=0.6, eps=1e-8):
+    def __init__(self, beta=0.6, gamma=1.0, eps=1e-8):
         self.beta = beta
         self.eps = eps
+        self.gamma = gamma
 
     def __call__(self, y_true, logits):
         y_pred = nn.Sigmoid()(logits)
-        num = torch.sum(torch.mul(y_true, y_pred))
-        den = torch.sum(torch.mul(y_true, y_pred) + torch.mul(y_true, (1 - self.beta) * (1 - y_pred)) +
-                        torch.mul(self.beta * (1 - y_true), y_pred)) + self.eps
-        res = 1 - num / den
-        return res
+
+        true_pos = torch.sum(torch.mul(y_true, y_pred))
+        false_pos = torch.sum(torch.mul(1 - y_true, y_pred))
+        false_neg = torch.sum(torch.mul(y_true, 1 - y_pred))
+
+        ti = true_pos / (true_pos + (1 - self.beta) * false_pos + self.beta * false_neg)
+        tl = (1 - ti)**self.gamma
+
+        return tl
