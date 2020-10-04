@@ -54,6 +54,7 @@ class ButtDataset(Dataset):
             return image, mask
 
         if self.mode == "inference":
+            image = self.augs(image=image)
             image = transforms.ToTensor()(image)
             return image
 
