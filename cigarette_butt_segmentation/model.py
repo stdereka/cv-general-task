@@ -4,7 +4,7 @@ import torch
 
 class UNet(nn.Module):
     def __init__(self, size=256):
-        super(UNet).__init__()
+        super().__init__()
 
         def get_conv_block(inp, out):
             block = nn.Sequential(
