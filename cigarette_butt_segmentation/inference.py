@@ -26,4 +26,4 @@ def inference(model: nn.Module, test_loader: DataLoader,
     if logit:
         return torch.cat(logits).numpy()
     else:
-        return nn.Sigmoid()(logits).numpy()
+        return nn.Sigmoid()(torch.cat(logits)).numpy()
