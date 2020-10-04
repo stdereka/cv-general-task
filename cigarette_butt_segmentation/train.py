@@ -35,8 +35,7 @@ def fit_epoch(model: nn.Module, train_loader: DataLoader,
         preds = nn.Sigmoid()(outputs)
 
         ground.append(labels.cpu())
-        predicted.append(preds.cpu())
-
+        predicted.append(preds.cpu().detach().numpy())
         running_loss += loss.item() * inputs.size(0)
         processed_data += inputs.size(0)
 
@@ -76,7 +75,7 @@ def eval_epoch(model: nn.Module, val_loader: DataLoader,
             preds = nn.Sigmoid()(outputs)
 
         ground.append(labels[0].cpu())
-        predicted.append(preds.cpu())
+        predicted.append(preds.cpu().detach().numpy())
 
         running_loss += loss.item() * inputs.size(0)
         processed_size += inputs.size(0)
