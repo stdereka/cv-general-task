@@ -3,6 +3,7 @@ import numpy as np
 from torch.utils.data import DataLoader
 from torch import nn
 from lib import get_dice
+import matplotlib.pyplot as plt
 
 
 def fit_epoch(model: nn.Module, train_loader: DataLoader,
@@ -121,3 +122,30 @@ def train(train_dataset, val_dataset, model, epochs: int,
                                   t_acc=train_metric, v_acc=val_metric))
 
     return np.array(history)
+
+
+def plot_training_history(history: np.array, figsize=(20, 5)):
+    """
+    Draws model training history on a graph
+    :param history: output of train function
+    :param figsize: figure size
+    :return:
+    """
+    fig, ax = plt.subplots(1, 2, figsize=figsize)
+    ax = ax.flatten()
+
+    ax[0].plot(history[:, 0], label="Train")
+    ax[0].plot(history[:, 2], label="Val")
+    ax[0].set_xlabel("Epoch")
+    ax[0].set_ylabel("Loss")
+    ax[0].legend()
+    ax[0].grid()
+
+    ax[1].plot(history[:, 1], label="Train")
+    ax[1].plot(history[:, 3], label="Val")
+    ax[1].set_xlabel("Epoch")
+    ax[1].set_ylabel("Metric")
+    ax[1].legend()
+    ax[1].grid()
+
+    plt.show()

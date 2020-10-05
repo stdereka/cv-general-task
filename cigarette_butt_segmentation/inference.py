@@ -2,6 +2,7 @@ import torch
 import numpy as np
 from torch.utils.data import DataLoader
 from torch import nn
+from lib import get_dice
 
 
 def inference(model: nn.Module, test_dataset,
@@ -51,3 +52,19 @@ def inference_tta(model: nn.Module, test_dataset,
         preds.append(pred)
 
     return preds
+
+
+def inference_with_metric(model: nn.Module, test_dataset, device: str, thresh=0.5):
+    """
+    Runs prediction and computes metric for every picture on labeled dataset
+    :param model: pytorch model
+    :param test_dataset: test pytorch dataset (labeled)
+    :param device: device to use (cpu, gpu etc.)
+    :param thresh: class 1 threshold
+    :return: (predicted masks, metric values)
+    """
+    preds = inference(model, test_dataset, device, logit=False)
+    trues = [item[1].numpy() for item in test_dataset]
+    dices = [get_dice(trues[i], preds[i] >= thresh) for i in range(len(trues))]
+
+    return preds, dices
