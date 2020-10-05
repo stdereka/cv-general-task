@@ -63,7 +63,7 @@ class ButtDataset(Dataset):
         if self.mode == "inference":
             image = self.augs(image=image)["image"]
             image = transforms.ToTensor()(image)
-            return image, None
+            return image, []
 
     def __len__(self):
         """
