@@ -4,3 +4,4 @@ numpy==1.18.5
 pillow==7.0.0
 opencv-python==4.1.2.30
 segmentation-models-pytorch==0.1.2
+torchvision==0.7.0

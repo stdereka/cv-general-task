@@ -7,7 +7,6 @@ import albumentations as a
 import numpy as np
 from torchvision import transforms
 import cv2
-from torch import Tensor
 
 
 class ButtDataset(Dataset):
