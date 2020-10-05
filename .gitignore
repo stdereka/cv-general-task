@@ -47,4 +47,5 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
-
+cigarette_butt_segmentation/data/*
+cigarette_butt_segmentation/results/*
