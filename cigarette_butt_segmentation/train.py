@@ -40,8 +40,8 @@ def fit_epoch(model: nn.Module, train_loader: DataLoader,
         running_loss += loss.item() * inputs.size(0)
         processed_data += inputs.size(0)
 
-    ground = np.hstack(ground)
-    predicted = np.hstack(predicted)
+    ground = np.vstack(ground)
+    predicted = np.vstack(predicted)
 
     train_loss = running_loss / processed_data
     train_metric = get_dice(ground, predicted >= 0.5)
@@ -80,8 +80,8 @@ def eval_epoch(model: nn.Module, val_loader: DataLoader,
         running_loss += loss.item() * inputs.size(0)
         processed_size += inputs.size(0)
 
-    ground = np.hstack(ground)
-    predicted = np.hstack(predicted)
+    ground = np.vstack(ground)
+    predicted = np.vstack(predicted)
 
     val_loss = running_loss / processed_size
     val_metric = get_dice(ground, predicted >= 0.5)
