@@ -15,6 +15,13 @@ class ButtDataset(Dataset):
     Dataset for cigarette butt segmentation problem
     """
     def __init__(self, image_dir: str, coco_path: str, mode="trainval", augs=(), size=512):
+        """
+        :param image_dir: Images directory
+        :param coco_path: Path to COCO annotations
+        :param mode: "trainval" - train and validation (requires COCO annotations), "inference" - unlabeled
+        :param augs: Augmentation pipeline
+        :param size: Input image size
+        """
         self.image_dir = image_dir
         self.coco_path = coco_path
         self.size = size
@@ -54,9 +61,9 @@ class ButtDataset(Dataset):
             return image, mask
 
         if self.mode == "inference":
-            image = self.augs(image=image)
+            image = self.augs(image=image)["image"]
             image = transforms.ToTensor()(image)
-            return image
+            return image, None
 
     def __len__(self):
         """

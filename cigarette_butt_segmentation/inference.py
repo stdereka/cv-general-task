@@ -19,7 +19,7 @@ def inference(model: nn.Module, test_dataset,
     with torch.no_grad():
         logits = []
 
-        for inputs in test_loader:
+        for inputs, _ in test_loader:
             inputs = inputs.to(device)
             model.eval()
             outputs = model(inputs).cpu()
